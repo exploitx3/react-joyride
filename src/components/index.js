@@ -83,6 +83,7 @@ class Joyride extends React.Component {
 
   componentDidMount() {
     if (!canUseDOM) return;
+    debugger
 
     const { disableCloseOnEsc, debug, run, steps } = this.props;
     const { start } = this.store;
@@ -99,7 +100,7 @@ class Joyride extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (!canUseDOM) return;
-
+    debugger
     const { action, controlled, index, lifecycle, status } = this.state;
     const { debug, run, stepIndex, steps } = this.props;
     const { steps: prevSteps, stepIndex: prevStepIndex } = prevProps;

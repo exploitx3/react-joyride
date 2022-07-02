@@ -38,12 +38,13 @@ export default class JoyrideOverlay extends React.Component {
     spotlightPadding: PropTypes.number,
     styles: PropTypes.object.isRequired,
     target: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
+    documentInternal: PropTypes.object,
   };
 
   componentDidMount() {
-    const { debug, disableScrolling, disableScrollParentFix, target } = this.props;
-    const element = getElement(target);
-
+    const { debug, disableScrolling, disableScrollParentFix, target, documentInternal } = this.props;
+    const element = getElement(target, documentInternal);
+debugger
     this.scrollParent = getScrollParent(element, disableScrollParentFix, true);
     this._isMounted = true;
 
@@ -101,9 +102,9 @@ export default class JoyrideOverlay extends React.Component {
 
   get spotlightStyles() {
     const { showSpotlight } = this.state;
-    const { disableScrollParentFix, spotlightClicks, spotlightPadding, styles, target } =
+    const { disableScrollParentFix, spotlightClicks, spotlightPadding, styles, target, documentInternal } =
       this.props;
-    const element = getElement(target);
+    const element = getElement(target, documentInternal);
     const elementRect = getClientRect(element);
     const isFixedTarget = hasPosition(element);
     const top = getElementPosition(element, spotlightPadding, disableScrollParentFix);

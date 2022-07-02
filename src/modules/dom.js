@@ -1,7 +1,7 @@
 // @flow
 import scroll from 'scroll';
-import scrollParent from 'scrollparent';
-
+import scrollParent from './scrollparent';
+debugger
 /**
  * Find the bounding client rect
  *
@@ -45,10 +45,15 @@ export function getDocumentHeight(): number {
  *
  * @returns {HTMLElement|null}
  */
-export function getElement(element: string | HTMLElement): ?HTMLElement {
+export function getElement(element: string | HTMLElement, documentInternal : Document): ?HTMLElement {
   /* istanbul ignore else */
+
+  if(!documentInternal) {
+    documentInternal = document
+  }
+
   if (typeof element === 'string') {
-    return document.querySelector(element);
+    return documentInternal.querySelector(element);
   }
 
   return element;
@@ -81,7 +86,7 @@ export function getStyleComputedProperty(el: HTMLElement): Object {
 export function getScrollParent(
   element: HTMLElement,
   skipFix: boolean,
-  forListener: ?boolean,
+  forListener: ?boolean
 ): HTMLElement | Document {
   const parent = scrollParent(element);
 
