@@ -210,12 +210,11 @@ export default function createStore(props: StoreState): StoreInstance {
       const { index, status } = this.getState();
 
       if (status !== STATUS.RUNNING) return;
-      
+
       if(index === 0) {
 
-        this.setState(this.getNextState({ action: ACTIONS.START, index: index + 1, status: status }));
+        this.setState(this.getNextState({ action: ACTIONS.START, index: index + 1, status: status }, true));
 
-        }, true));
 
       } else {
 
