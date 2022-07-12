@@ -210,8 +210,19 @@ export default function createStore(props: StoreState): StoreInstance {
       const { index, status } = this.getState();
 
       if (status !== STATUS.RUNNING) return;
+      
+      if(index === 0) {
 
-      this.setState(this.getNextState({ action: ACTIONS.NEXT, index: index + 1 }));
+        this.setState(this.getNextState({ action: ACTIONS.START, index: index + 1, status: status }));
+
+        }, true));
+
+      } else {
+
+        this.setState(this.getNextState({ action: ACTIONS.NEXT, index: index + 1 }));
+
+      }
+
     };
 
     open = () => {
