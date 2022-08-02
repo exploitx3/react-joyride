@@ -284,7 +284,7 @@ class Joyride extends React.Component {
 
     /* istanbul ignore else */
     if (step) {
-      const target = getElement(step.target);
+      const target = getElement(step.target, step.frameInternal.document);
       const shouldScroll = this.shouldScroll(
         disableScrolling,
         index,
@@ -406,6 +406,8 @@ class Joyride extends React.Component {
     let output;
 
     if (status === STATUS.RUNNING && step) {
+      console.log('Current Step - ')
+      console.log(JSON.stringify(step.data, null, 2))
       output = (
         <Step
           {...this.state}

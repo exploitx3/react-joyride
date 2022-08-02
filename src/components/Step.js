@@ -78,6 +78,7 @@ export default class JoyrideStep extends React.Component {
       styles: PropTypes.object,
       target: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
       documentInternal: PropTypes.object,
+      frameInternal: PropTypes.object,
       title: PropTypes.node,
       tooltipComponent: componentTypeWithRefs,
     }).isRequired,
@@ -149,7 +150,7 @@ export default class JoyrideStep extends React.Component {
 
     // There's a step to use, but there's no target in the DOM
     if (hasStoreChanged && step) {
-      const element = getElement(step.target, step.documentInternal)
+      const element = getElement(step.target, step.frameInternal.document)
       const elementExists = !!element
       const hasRenderedTarget = elementExists && isElementVisible(element)
 
@@ -277,7 +278,7 @@ export default class JoyrideStep extends React.Component {
 
     const { continuous, debug, helpers, index, lifecycle, nonce, shouldScroll, size, step } =
       this.props
-    const target = getElement(step.target, step.documentInternal)
+    const target = getElement(step.target, step.frameInternal.document)
 
     if (!validateStep(step) || !is.domElement(target)) {
       return null

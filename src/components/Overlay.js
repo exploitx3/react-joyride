@@ -39,11 +39,12 @@ export default class JoyrideOverlay extends React.Component {
     styles: PropTypes.object.isRequired,
     target: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
     documentInternal: PropTypes.object,
+    frameInternal: PropTypes.object,
   };
 
   componentDidMount() {
-    const { debug, disableScrolling, disableScrollParentFix, target, documentInternal } = this.props;
-    const element = getElement(target, documentInternal);
+    const { debug, disableScrolling, disableScrollParentFix, target, documentInternal, frameInternal } = this.props;
+    const element = getElement(target, frameInternal.document);
 debugger
     this.scrollParent = getScrollParent(element, disableScrollParentFix, true);
     this._isMounted = true;
@@ -102,9 +103,9 @@ debugger
 
   get spotlightStyles() {
     const { showSpotlight } = this.state;
-    const { disableScrollParentFix, spotlightClicks, spotlightPadding, styles, target, documentInternal } =
+    const { disableScrollParentFix, spotlightClicks, spotlightPadding, styles, target, documentInternal, frameInternal } =
       this.props;
-    const element = getElement(target, documentInternal);
+    const element = getElement(target, frameInternal.document);
     const elementRect = getClientRect(element);
     const isFixedTarget = hasPosition(element);
     const top = getElementPosition(element, spotlightPadding, disableScrollParentFix);
@@ -139,7 +140,7 @@ debugger
 
   handleScroll = () => {
     const { target } = this.props;
-    const element = getElement(target, step.documentInternal);
+    const element = getElement(target, step.frameInternal.document);
 
     if (this.scrollParent !== document) {
       const { isScrolling } = this.state;

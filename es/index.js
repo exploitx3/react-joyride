@@ -1753,7 +1753,7 @@ var JoyrideOverlay = /*#__PURE__*/function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "handleScroll", function () {
       var target = _this.props.target;
-      var element = getElement(target, step.documentInternal);
+      var element = getElement(target, step.frameInternal.document);
 
       if (_this.scrollParent !== document) {
         var isScrolling = _this.state.isScrolling;
@@ -1798,9 +1798,10 @@ var JoyrideOverlay = /*#__PURE__*/function (_React$Component) {
           _this$props.debug;
           _this$props.disableScrolling;
           var disableScrollParentFix = _this$props.disableScrollParentFix,
-          target = _this$props.target,
-          documentInternal = _this$props.documentInternal;
-      var element = getElement(target, documentInternal);
+          target = _this$props.target;
+          _this$props.documentInternal;
+          var frameInternal = _this$props.frameInternal;
+      var element = getElement(target, frameInternal.document);
       debugger;
       this.scrollParent = getScrollParent(element, disableScrollParentFix, true);
       this._isMounted = true;
@@ -1863,9 +1864,10 @@ var JoyrideOverlay = /*#__PURE__*/function (_React$Component) {
           spotlightClicks = _this$props3.spotlightClicks,
           spotlightPadding = _this$props3.spotlightPadding,
           styles = _this$props3.styles,
-          target = _this$props3.target,
-          documentInternal = _this$props3.documentInternal;
-      var element = getElement(target, documentInternal);
+          target = _this$props3.target;
+          _this$props3.documentInternal;
+          var frameInternal = _this$props3.frameInternal;
+      var element = getElement(target, frameInternal.document);
       var elementRect = getClientRect(element);
       var isFixedTarget = hasPosition(element);
       var top = getElementPosition(element, spotlightPadding, disableScrollParentFix);
@@ -2455,7 +2457,7 @@ var JoyrideStep = /*#__PURE__*/function (_React$Component) {
 
 
       if (hasStoreChanged && step) {
-        var element = getElement(step.target, step.documentInternal);
+        var element = getElement(step.target, step.frameInternal.document);
         var elementExists = !!element;
         var hasRenderedTarget = elementExists && isElementVisible(element);
 
@@ -2557,7 +2559,7 @@ var JoyrideStep = /*#__PURE__*/function (_React$Component) {
           shouldScroll = _this$props7.shouldScroll,
           size = _this$props7.size,
           step = _this$props7.step;
-      var target = getElement(step.target, step.documentInternal);
+      var target = getElement(step.target, step.frameInternal.document);
 
       if (!validateStep(step) || !is.domElement(target)) {
         return null;
@@ -2886,7 +2888,7 @@ var Joyride = /*#__PURE__*/function (_React$Component) {
       /* istanbul ignore else */
 
       if (step) {
-        var target = getElement(step.target);
+        var target = getElement(step.target, step.frameInternal.document);
         var shouldScroll = this.shouldScroll(disableScrolling, index, scrollToFirstStep, lifecycle, step, target, prevState);
 
         if (status === STATUS.RUNNING && shouldScroll) {
@@ -2964,6 +2966,8 @@ var Joyride = /*#__PURE__*/function (_React$Component) {
       var output;
 
       if (status === STATUS.RUNNING && step) {
+        console.log('Current Step - ');
+        console.log(JSON.stringify(step.data, null, 2));
         output = /*#__PURE__*/React.createElement(JoyrideStep, _extends({}, this.state, {
           callback: this.callback,
           continuous: continuous,
