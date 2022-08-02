@@ -25,6 +25,10 @@ export default (function () {
     // created from a different document.HTMLElement(part of the iframe) and
     // the rule below fails without !!node.getAttribute
 
+    if(!node) {
+      return ;
+    }
+
     if (!(node instanceof HTMLElement || node instanceof SVGElement || !!node.getAttribute)) {
       return ;
     }
