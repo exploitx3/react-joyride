@@ -139,7 +139,7 @@ debugger
 
   handleScroll = () => {
     const { target } = this.props;
-    const element = getElement(target);
+    const element = getElement(target, step.documentInternal);
 
     if (this.scrollParent !== document) {
       const { isScrolling } = this.state;

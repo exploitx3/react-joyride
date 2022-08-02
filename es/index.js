@@ -835,6 +835,10 @@ var scrollParent = (function () {
     // Added !!node.getAttribute to verify that nodes are HTMLElements because sometimes node is
     // created from a different document.HTMLElement(part of the iframe) and
     // the rule below fails without !!node.getAttribute
+    if (!node) {
+      return;
+    }
+
     if (!(node instanceof HTMLElement || node instanceof SVGElement || !!node.getAttribute)) {
       return;
     }
@@ -1749,7 +1753,7 @@ var JoyrideOverlay = /*#__PURE__*/function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "handleScroll", function () {
       var target = _this.props.target;
-      var element = getElement(target);
+      var element = getElement(target, step.documentInternal);
 
       if (_this.scrollParent !== document) {
         var isScrolling = _this.state.isScrolling;
